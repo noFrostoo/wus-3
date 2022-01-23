@@ -1,7 +1,7 @@
 steps:
-  - name: maven:3-jdk-8
+  - name: maven:3-jdk-11
     entrypoint: mvn
-    args: ['spring-boot:build-image', '-Pk8s', '-DREPOSITORY_PREFIX=europe-central2-docker.pkg.dev/$PROJECT_ID/spring', '-X']
+    args: ['spring-boot:build-image', '-Pk8s', '-DREPOSITORY_PREFIX=europe-central2-docker.pkg.dev/$PROJECT_ID/spring']
 
   - name: 'gcr.io/cloud-builders/docker'
     args:
