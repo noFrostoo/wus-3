@@ -63,7 +63,7 @@ spec:
       restartPolicy: Always
       affinity:
         podAntiAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
+            requiredDuringSchedulingRequiredDuringExecution:
               - weight: 100
                 podAffinityTerm:
                   labelSelector:
