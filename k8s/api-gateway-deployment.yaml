@@ -18,7 +18,7 @@ spec:
         app: api-gateway
     spec:
       containers:
-      - image: europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-api-gateway:latest
+      - image: europe-central2-docker.pkg.dev/wus-21/spring/spring-petclinic-cloud-api-gateway:latest
         name: api-gateway
         imagePullPolicy: Always
         livenessProbe:
