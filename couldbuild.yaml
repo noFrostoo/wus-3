@@ -1,0 +1,52 @@
+steps:
+  - name: maven:3-jdk-8
+    entrypoint: mvn
+    args: ['spring-boot:build-image', '-Pk8s', '-DREPOSITORY_PREFIX=europe-central2-docker.pkg.dev/$PROJECT_ID/spring']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'push'
+    - 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-api-gateway'
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'push'
+    - 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-visits-service'
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'push'
+    - 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-vets-service'
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'push'
+    - 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-customers-service'
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'push'
+    - 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-admin-server'
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'push'
+    - 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-discovery-service'
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'push'
+    - 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-config-server'
+
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['get', 'pods']
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=europe-central2'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=spring-auto'
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', 'k8s']
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=europe-central2'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=spring-auto'
+images:
+- 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-api-gateway'
+- 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-visits-service'
+- 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-vets-service'
+- 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-customers-service'
+- 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-admin-server'
+- 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-discovery-service'
+- 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-config-server'
