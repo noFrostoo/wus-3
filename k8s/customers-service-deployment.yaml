@@ -18,8 +18,18 @@ spec:
       labels:
         app: customers-service
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values:
+                    - customers-service
+              topologyKey: "kubernetes.io/hostname"
       containers:
-      - image: europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-customers-service:latest
+      - image: europe-central2-docker.pkg.dev/wus-21/spring/spring-petclinic-cloud-customers-service:latest
         name: customers-service
         imagePullPolicy: Always
         livenessProbe:
@@ -61,14 +71,4 @@ spec:
         - containerPort: 8080
         resources: {}
       restartPolicy: Always
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: "app"  ` 
-                    operator: In
-                    values:
-                    - customers-service
-              topologyKey: "kubernetes.io/hostname"
 status: {}

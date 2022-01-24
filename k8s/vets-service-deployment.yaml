@@ -17,6 +17,16 @@ spec:
       labels:
         app: vets-service
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values:
+                    - vets-service
+              topologyKey: "kubernetes.io/hostname"
       containers:
       - image: europe-central2-docker.pkg.dev/wus-21/spring/spring-petclinic-cloud-vets-service:latest
         name: vets-service
@@ -59,15 +69,5 @@ spec:
         ports:
         - containerPort: 8080
         resources: {}
-      restartPolicy: Always
-      affinity:
-        podAntiAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchExpressions:
-                   - key: "vets-service"
-                      operator: In
-                      values:
-                      - vets-service
-              topologyKey: "kubernetes.io/hostname"              
+      restartPolicy: Always              
 status: {}
