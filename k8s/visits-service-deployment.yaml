@@ -62,14 +62,12 @@ spec:
       restartPolicy: Always
       affinity:
         podAntiAffinity:
-            preferredDuringSchedulingIgnoredDuringExecution:
-              - weight: 100
-                podAffinityTerm:
-                  labelSelector:
-                    matchExpressions:
-                      - key: "visits-service"
-                        operator: In
-                        values:
-                        - visits-service
-                  topologyKey: "kubernetes.io/hostname"
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+              matchExpressions:
+                - key: "visits-service"
+                  operator: In
+                  values:
+                  - visits-service
+              topologyKey: "kubernetes.io/hostname"
 status: {}
