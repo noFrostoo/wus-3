@@ -19,7 +19,7 @@ spec:
     spec:
       affinity:
         podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
+          preferredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
                 matchExpressions:
                   - key: "app"
@@ -48,10 +48,10 @@ spec:
               command: ["sh", "-c", "sleep 10"]
         resources:
           limits:
-            memory: 2Gi
+            memory: 1Gi
           requests:
-            cpu: 4000m
-            memory: 2Gi
+            cpu: 2000m
+            memory: 1Gi
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: kubernetes
