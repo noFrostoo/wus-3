@@ -35,7 +35,7 @@ steps:
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['apply', '-f', 'k8s']
     env:
-      - 'CLOUDSDK_COMPUTE_REGION=europe-central2'
+      - 'CLOUDSDK_COMPUTE_ZONE=europe-north1-b'
       - 'CLOUDSDK_CONTAINER_CLUSTER=spring-auto'
 images:
 - 'europe-central2-docker.pkg.dev/$PROJECT_ID/spring/spring-petclinic-cloud-api-gateway'
